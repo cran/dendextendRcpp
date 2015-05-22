@@ -29,7 +29,7 @@
 
 old_cut_lower_fun <- function(tree, h, FUN = labels, warn = FALSE, ...) {
    
-   if(!is.dendrogram(tree)) stop("'tree' needs to be a dendrogram. Aborting the function 'cut_lower_labels'.")
+   if(!dendextend::is.dendrogram(tree)) stop("'tree' needs to be a dendrogram. Aborting the function 'cut_lower_labels'.")
    
    if(is.leaf(tree)) return(list(FUN(tree)))
    # else:
@@ -46,7 +46,7 @@ old_cut_lower_fun <- function(tree, h, FUN = labels, warn = FALSE, ...) {
 
 old_heights_per_k.dendrogram <- function (tree, ...) 
 {
-   our_dend_heights <- sort(unique(get_branches_heights(tree, 
+   our_dend_heights <- sort(unique(dendextend::get_branches_heights(tree, 
                                                         sort = FALSE)), TRUE)
    heights_to_remove_for_A_cut <- min(-diff(our_dend_heights))/2
    heights_to_cut_by <- c((max(our_dend_heights) + heights_to_remove_for_A_cut), 
@@ -62,7 +62,7 @@ old_heights_per_k.dendrogram <- function (tree, ...)
 
 old_get_branches_heights <- function (tree, sort = TRUE, decreasing = FALSE, ...) 
 {
-   height <- get_nodes_attr(tree, "height", include_leaves = FALSE, 
+   height <- dendextend::get_nodes_attr(tree, "height", include_leaves = FALSE, 
                             na.rm = TRUE)
    if (sort) 
       height <- sort(height, decreasing = decreasing)

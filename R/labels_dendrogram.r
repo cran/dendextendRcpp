@@ -23,11 +23,8 @@
 #' @aliases 
 #' Rcpp_labels_dendrogram
 #' stats_labels.dendrogram
-#' @S3method labels dendrogram
 #' @description 
 #' Extract the leaves labels from a dendrogram object.
-#' @usage
-#' \method{labels}{dendrogram}(object, warn=FALSE, ...)
 #' @param object a dendrogram object.
 #' @param warn logical (FALSE) - should the user be warned if reverting to
 #' default? (I set it to FALSE since it can be very noisy sometimes...)
@@ -44,13 +41,13 @@
 #' labels(dend)
 #' 
 #' \dontrun{
-#' require(microbenchmark)
-#' microbenchmark(stats_labels.dendrogram(dend),
-#'                dendextendRcpp::labels.dendrogram(dend),
+#' # require(microbenchmark)
+#' microbenchmark::microbenchmark(dendextendRcpp::stats_labels.dendrogram(dend),
+#'                dendextendRcpp::dendextendRcpp_labels.dendrogram(dend),
 #'                times = 100)
 #' # about 30 times faster. It is faster the larger the tree is.
 #' }
-labels.dendrogram <- function(object,warn = FALSE, ...) {
+dendextendRcpp_labels.dendrogram <- function(object, warn = FALSE, ...) {
    
    if(is.leaf(object)) return(attr(object, "label"))   
    
@@ -63,6 +60,7 @@ labels.dendrogram <- function(object,warn = FALSE, ...) {
 }
 
 
+# labels.dendrogram <- dendextendRcpp_labels.dendrogram
 
 
 # detach( 'package:dendextendRcpp', unload=TRUE )

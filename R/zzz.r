@@ -86,9 +86,10 @@ assign_dendextendRcpp_to_dendextend <- function() {
    # options(dendextend_heights_per_k.dendrogram = dendextendRcpp::heights_per_k.dendrogram)
    # options(dendextend_cut_lower_fun = dendextendRcpp::cut_lower_fun)
 
-   dendextend_options("get_branches_heights" , dendextendRcpp::dendextendRcpp_get_branches_heights)
-   dendextend_options("heights_per_k.dendrogram" , dendextendRcpp::dendextendRcpp_heights_per_k.dendrogram)
-   dendextend_options("cut_lower_fun" , dendextendRcpp::dendextendRcpp_cut_lower_fun)
+   dendextend::dendextend_options("get_branches_heights" , dendextendRcpp::dendextendRcpp_get_branches_heights)
+   dendextend::dendextend_options("heights_per_k.dendrogram" , dendextendRcpp::dendextendRcpp_heights_per_k.dendrogram)
+   dendextend::dendextend_options("cut_lower_fun" , dendextendRcpp::dendextendRcpp_cut_lower_fun)
+   dendextend::dendextend_options("labels.dendrogram" , dendextendRcpp::dendextendRcpp_labels.dendrogram)
    
    # dendextend_options()
    
@@ -157,8 +158,9 @@ remove_dendextendRcpp_options <- function() {
 
 .onAttach <- function(lib, pkg,...){
    ####
-#    packageStartupMessage(installrWelcomeMessage())  
+   # packageStartupMessage("Consider running: labels.dendrogram <- dendextendRcpp_labels.dendrogram if you wish to gain extra speed on your own dendrogram-related functions")
    
+   # look at the top of this file.
    assign_dendextendRcpp_to_dendextend()
    
    
@@ -172,7 +174,7 @@ remove_dendextendRcpp_options <- function() {
 
 
 
-
+# devtools::use_travis()
 
 
 
@@ -201,7 +203,7 @@ remove_dendextendRcpp_options <- function() {
 # 4) use:
 #### tools::compactPDF("inst\\doc\\dendextend-tutorial.pdf", gs_quality="ebook") 
 # tools::compactPDF("inst\\doc\\dendextend-tutorial.pdf") 
-###   compacted ‘dendextend-tutorial.pdf’ from 961Kb to 737Kb
+###   compacted 'dendextend-tutorial.pdf' from 961Kb to 737Kb
 
 # For checking:
 # 1) get qpdf
@@ -228,11 +230,18 @@ remove_dendextendRcpp_options <- function() {
 # require(devtools)
 # check("D:/Dropbox/aaaa good R code/AA - My packages/dendextendRcpp", args="--as-cran",document=FALSE)
 #                 Thanks to: http://stackoverflow.com/questions/10017702/r-cmd-check-options-for-more-rigorous-testing-2-15-0
+
+
 # file.copy("NEWS", "NEWS.md")
+# shell('git log --graph --stat --date=short --pretty=format:"%ad(%an) %s |%h" > ChangeLog', intern = TRUE)
+
+
+
+
 #
 #
 # require(devtools)
 # check(args="--as-cran",document=FALSE) # I need to not check the documents since this seem to force a NAMESPACE change...
-# build_win(version="R-devel")
+# devtools::build_win(version="R-devel")
 # release(check = FALSE)
 # release()
